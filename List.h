@@ -42,7 +42,7 @@ public:
         }
     }
     void remove(string title){
-        Node* temp , *current;
+        Node* temp , *current = nullptr;
         if(head == NULL){
             cout << "List is empty" << endl;
             return;
