@@ -1,8 +1,8 @@
 using namespace std;
-template <typename T>
+#include <Book.h>
 class Node
 {
 public:
-    T data;
+    Book data;
     Node *next;
 };

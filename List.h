@@ -1,11 +1,10 @@
 #include <iostream>
 using namespace std;
 #include "Node.h"
-template <typename T>
 
 class List
 {
-    Node<T> *head;
+    Node *head;
     unsigned int size;
 
 public:
@@ -13,6 +12,18 @@ public:
     {
         size = 0;
         head = NULL;
+    }
+
+    Book *find(string title)
+    {
+        for (Node *temp = head; temp != NULL; temp = temp->next)
+        {
+            if (temp->data.title == title)
+            {
+                return &temp->data;
+            }
+        }
+        return nullptr;
     }
 
     ~List()
