@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "List.h"
 using namespace std;
+List library;
 
 void findBook(List &lib)
 {
@@ -52,16 +53,24 @@ void BorrowBook(List &lib)
 
 void returnBorrowedBook(string title);
 
+void fileSystem();
 int main()
 {
-    List library;
-    ifstream inputFile("../DATA.txt");
+    fileSystem();
+    library.print();
+    exit(0);
+    return 0;
+}
+
+void fileSystem()
+{
+    ifstream inputFile("./DATA.txt");
 
     if (!inputFile.is_open())
     {
         cout << "Current working directory: " << filesystem::current_path() << endl;
         cerr << "Error: Unable to open DATA.txt " << endl;
-        return 1;
+        exit(1);
     }
 
     string line;
@@ -78,10 +87,4 @@ int main()
         library.add(Book(title, author, copies));
     }
     inputFile.close();
-
-    library.print();
-    // library.remove("White Balance");
-    library.print();
-    exit(0);
-    return 0;
 }
