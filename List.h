@@ -25,36 +25,48 @@ public:
         }
         return nullptr;
     }
-    void add(Book data){
-        Node* newNode = new Node;
+    void add(Book data)
+    {
+        Node *newNode = new Node;
         newNode->data = data;
         newNode->next = NULL;
-        if(head == NULL){
+        if (head == NULL)
+        {
             head = newNode;
             size++;
-        }else {
-            Node* last = head;
-            while(last->next!= NULL){
+        }
+        else
+        {
+            Node *last = head;
+            while (last->next != NULL)
+            {
                 last = last->next;
             }
             last->next = newNode;
             size++;
         }
     }
-    void remove(string title){
-        Node* temp , *current = nullptr;
-        if(head == NULL){
+    void remove(string title)
+    {
+        Node *temp, *current = nullptr;
+        if (head == NULL)
+        {
             cout << "List is empty" << endl;
             return;
-        }else if(head->data.title == title){
+        }
+        else if (head->data.title == title)
+        {
             temp = head;
             head = head->next;
             delete temp;
             size--;
             return;
-        }else {
+        }
+        else
+        {
             temp = head;
-            while(temp->next!= NULL && temp->next->data.title!= title){
+            while (temp->next != NULL && temp->next->data.title != title)
+            {
                 current = temp;
                 temp = temp->next;
             }
@@ -75,5 +87,6 @@ public:
             delete temp1;
             temp1 = temp2;
         }
+        cout << "LiST IS DELETED SUCCESSFUL" << endl;
     }
 };
