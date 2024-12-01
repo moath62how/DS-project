@@ -103,6 +103,5 @@ public:
             delete temp1;
             temp1 = temp2;
         }
-        cout << "LiST IS DELETED SUCCESSFUL" << endl;
     }
 };
