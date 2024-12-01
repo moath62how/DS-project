@@ -56,7 +56,9 @@ void fileSystem(List &library);
 int main()
 {
     List library;
-
+    fileSystem(library);
+    library.remove("White Balance");
+    library.print();
     exit(0);
     return 0;
 }

@@ -69,15 +69,18 @@ public:
         else
         {
             temp = head;
-            while (temp->next != NULL && temp->next->data.title != title)
+            while (temp->next != NULL)
             {
                 current = temp;
                 temp = temp->next;
+                if (temp->next->data.title == title)
+                {
+                    current->next = temp->next;
+                    delete temp;
+                    size--;
+                    return;
+                }
             }
-            current->next = temp->next;
-            delete temp;
-            size--;
-            return;
         }
     }
     void print()
