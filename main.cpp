@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "List.h"
 using namespace std;
 
@@ -6,15 +6,15 @@ void findBook(List lib)
 {
     string title;
     cout << "Enter the title of the book you search: ";
-    cin.ignore();  
-    getline(cin, title); 
+    getline(cin, title);
+    cout << title << endl;
 
     Book *book = lib.find(title);
 
     if (book != nullptr)
     {
         cout << "Book found \n";
-        // display book details
+        book->display();
     }
     else
     {
@@ -22,38 +22,65 @@ void findBook(List lib)
     }
 }
 
-void BorrowBook(List lib){
-    cout <<"Enter the title of the book that you want to borrow: ";
+void BorrowBook(List lib)
+{
+    cout << "Enter the title of the book that you want to borrow: ";
     string title;
-    cin.ignore();  
-    getline(cin, title); 
+    getline(cin, title);
 
-    Book*book = lib.find(title);
+    Book *book = lib.find(title);
 
-    if(book != nullptr){
-        if(book->copies>0){
+    if (book != nullptr)
+    {
+        if (book->copies > 0)
+        {
             book->copies--;
-            cout <<"you have borrowed the boook: "<<book->title<<endl;
-            cout << "Remaining copies: "<<book->copies<<endl;
+            cout << "you have borrowed the boook: " << book->title << endl;
+            cout << "Remaining copies: " << book->copies << endl;
         }
-        else{
-            cout <<"Sorry, no copies available to borrow.\n";
+        else
+        {
+            cout << "Sorry, no copies available to borrow.\n";
         }
     }
-    else{
+    else
+    {
         cout << "book not found \n";
-        }
+    }
 }
 
-// void ReturnBorrowedBook(string title)
-// {
-// }
+void returnBorrowedBook(string title);
 
 int main()
 {
     List library;
-    library.add(Book("White Balance", "Moaz", 50));
-    findBook(library);
+    ifstream inputFile("../DATA.txt");
 
+    if (!inputFile.is_open())
+    {
+        cout << "Current working directory: " << filesystem::current_path() << endl;
+        cerr << "Error: Unable to open DATA.txt " << endl;
+        return 1;
+    }
+
+    string line;
+    while (getline(inputFile, line))
+    {
+        stringstream ss(line);
+        string title, author;
+        int copies;
+
+        getline(ss, title, ',');
+        getline(ss, author, ',');
+        ss >> copies;
+
+        library.add(Book(title, author, copies));
+    }
+    inputFile.close();
+
+    library.print();
+    // library.remove("White Balance");
+    library.print();
+    exit(0);
     return 0;
 }
