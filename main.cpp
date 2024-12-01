@@ -2,7 +2,7 @@
 #include "List.h"
 using namespace std;
 
-void findBook(List lib)
+void findBook(List &lib)
 {
     string title;
     cout << "Enter the title of the book you search: ";
@@ -14,7 +14,7 @@ void findBook(List lib)
     if (book != nullptr)
     {
         cout << "Book found \n";
-        // display book details
+        book->display();
     }
     else
     {
@@ -22,7 +22,7 @@ void findBook(List lib)
     }
 }
 
-void BorrowBook(List lib){
+void BorrowBook(List &lib){
     cout <<"Enter the title of the book that you want to borrow: ";
     string title;
     cin.ignore();  
