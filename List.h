@@ -76,6 +76,22 @@ public:
             return;
         }
     }
+    void print()
+    {
+        if (head == NULL)
+        {
+            cout << "The list is empty." << endl;
+            return;
+        }
+
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            temp->data.display();
+            temp = temp->next;
+        }
+    }
+
     ~List()
     {
         Node *temp1 = head;
