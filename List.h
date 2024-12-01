@@ -46,6 +46,10 @@ public:
             size++;
         }
     }
+    unsigned int length()
+    {
+        return size;
+    }
     void remove(string title)
     {
         Node *temp, *current = nullptr;

@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "List.h"
 using namespace std;
-List library;
 
 void findBook(List &lib)
 {
@@ -53,16 +52,16 @@ void BorrowBook(List &lib)
 
 void returnBorrowedBook(string title);
 
-void fileSystem();
+void fileSystem(List &library);
 int main()
 {
-    fileSystem();
-    library.print();
+    List library;
+
     exit(0);
     return 0;
 }
 
-void fileSystem()
+void fileSystem(List &library)
 {
     ifstream inputFile("./DATA.txt");
 
