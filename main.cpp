@@ -45,10 +45,6 @@ void BorrowBook(List &lib){
         }
 }
 
-// void ReturnBorrowedBook(string title)
-// {
-// }
-
 int main()
 {
     List library;
