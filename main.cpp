@@ -7,7 +7,6 @@ void findBook(List &lib)
     string title;
     cout << "Enter the title of the book you search: ";
     getline(cin, title);
-    cout << title << endl;
 
     Book *book = lib.find(title);
 
@@ -26,7 +25,6 @@ void BorrowBook(List &lib)
 {
     cout << "Enter the title of the book that you want to borrow: ";
     string title;
-    cin.ignore();
     getline(cin, title);
 
     Book *book = lib.find(title);
@@ -50,17 +48,34 @@ void BorrowBook(List &lib)
     }
 }
 
-void returnBorrowedBook(string title);
+void returnBorrowedBook(List &lib);
 
 void fileSystem(List &library);
 int main()
 {
     List library;
-    fileSystem(library);
-    library.remove("White Balance");
     library.print();
     exit(0);
     return 0;
+}
+
+void returnBorrowedBook(List &lib)
+{
+    cout << "Enter the title of the book that you want to Return: ";
+    string title;
+    getline(cin, title);
+    cout << title << endl;
+    Book *book = lib.find(title);
+
+    if (book != nullptr)
+    {
+        book->copies++;
+        cout << "Book returned succsesfuly." << endl;
+    }
+    else
+    {
+        cout << "book not found" << endl;
+    }
 }
 
 void fileSystem(List &library)
