@@ -2,6 +2,21 @@
 #include "List.h"
 using namespace std;
 
+
+
+void addBook(List& library) 
+{
+    string title , author ;
+    int copies;
+    cout << "Enter the title of Book: "  ;
+    cin.ignore();
+    getline(cin , title);
+    cout << "Enter the author of Book: " ;
+    getline(cin , author);
+    cout << "Enter the copies of Book: " ;
+    cin >> copies ;
+    library.add(Book(title , author , copies));
+}
 void findBook(List &lib)
 {
     string title;
