@@ -2,6 +2,21 @@
 #include "List.h"
 using namespace std;
 
+void findBook(List &lib);
+
+void BorrowBook(List &lib);
+void returnBorrowedBook(List &lib);
+void greeting();
+void fileSystem(List &library);
+int main()
+{
+    List library;
+    greeting();
+
+    exit(0);
+    return 0;
+}
+
 void findBook(List &lib)
 {
     string title;
@@ -48,15 +63,10 @@ void BorrowBook(List &lib)
     }
 }
 
-void returnBorrowedBook(List &lib);
-
-void fileSystem(List &library);
-int main()
+void greeting()
 {
-    List library;
-    library.print();
-    exit(0);
-    return 0;
+    string message = "Welcome to the library!";
+    cout << message << endl;
 }
 
 void returnBorrowedBook(List &lib)
