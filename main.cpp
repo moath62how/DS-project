@@ -12,8 +12,8 @@ void displayBooks(List &library);
 int main()
 {
     List library;
+    fileSystem(library);
     greeting();
-    displayBooks(library);
     exit(0);
     return 0;
 }
