@@ -2,19 +2,41 @@
 #include "List.h"
 using namespace std;
 
+void fileSystem(List &library);
+void greeting();
 void findBook(List &lib);
-
 void BorrowBook(List &lib);
 void returnBorrowedBook(List &lib);
-void greeting();
-void fileSystem(List &library);
+void addBook(List &library);
+void displayBooks(List &library);
 int main()
 {
     List library;
     greeting();
-
+    displayBooks(library);
     exit(0);
     return 0;
+}
+
+void displayBooks(List &library)
+{
+    cout << "-- Books in the Library --" << endl;
+    library.print();
+    cout << "--------------------------------" << endl;
+}
+
+void addBook(List &library)
+{
+    string title, author;
+    int copies;
+    cout << "Enter the title of Book: ";
+    cin.ignore();
+    getline(cin, title);
+    cout << "Enter the author of Book: ";
+    getline(cin, author);
+    cout << "Enter the copies of Book: ";
+    cin >> copies;
+    library.add(Book(title, author, copies));
 }
 
 void findBook(List &lib)
