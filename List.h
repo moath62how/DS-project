@@ -98,9 +98,9 @@ public:
             temp = temp->next;
         }
     }
-    Book *get(int index)
+    Book *get(unsigned int index)
     {
-        if (index < 0 || index >= size)
+        if (index >= size)
         {
             return nullptr;
         }
