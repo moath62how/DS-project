@@ -98,7 +98,21 @@ public:
             temp = temp->next;
         }
     }
+    Book *get(int index)
+    {
+        if (index < 0 || index >= size)
+        {
+            return nullptr;
+        }
 
+        Node *current = head;
+        for (int i = 0; i < index; i++)
+        {
+            current = current->next;
+        }
+
+        return &current->data;
+    }
     ~List()
     {
         Node *temp1 = head;
