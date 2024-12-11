@@ -14,6 +14,8 @@ public:
         head = NULL;
     }
 
+    Node *getHead() { return head; }
+
     Book *find(string title)
     {
         for (Node *temp = head; temp != NULL; temp = temp->next)
