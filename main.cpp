@@ -2,30 +2,41 @@
 #include "List.h"
 using namespace std;
 
-void fileSystem(List &library);
+List library;
+
+void fileSystemLoad();
+void fileSystemSave();
 void greeting();
-void findBook(List &lib);
-void BorrowBook(List &lib);
-void returnBorrowedBook(List &lib);
-void addBook(List &library);
-void displayBooks(List &library);
+void printChoiceMenu();
+void getChoice();
+void findBook();
+void BorrowBook();
+void returnBorrowedBook();
+void addBook();
+void displayBooks();
+void removeBook();
+
 int main()
 {
-    List library;
-    fileSystem(library);
-    greeting();
-    exit(0);
+    fileSystemLoad();
+    string s;
+    getline(cin, s);
+    library.remove(s);
+    library.print();
+    // greeting();
+    // getChoice();
+    // fileSystemSave();
     return 0;
 }
 
-void displayBooks(List &library)
+void displayBooks()
 {
     cout << "-- Books in the Library --" << endl;
     library.print();
     cout << "--------------------------------" << endl;
 }
 
-void addBook(List &library)
+void addBook()
 {
     string title, author;
     int copies;
@@ -39,13 +50,72 @@ void addBook(List &library)
     library.add(Book(title, author, copies));
 }
 
-void findBook(List &lib)
+void removeBook()
+{
+    string title;
+    cout << "Enter the title of the book to remove: ";
+    cin.ignore();
+    getline(cin, title);
+
+    Book *book = library.find(title);
+
+    if (book != nullptr)
+    {
+        library.remove(title);
+        cout << "Book removed successfully.\n";
+    }
+    else
+    {
+        cout << "Error: Book not found in the library.\n";
+    }
+}
+
+void getChoice()
+{
+    unsigned int choice;
+    do
+    {
+        printChoiceMenu();
+        cout << "Enter your choice: ";
+        cin >> choice;
+        // cin.ignore();
+
+        switch (choice)
+        {
+        case 1:
+            displayBooks();
+            break;
+        case 2:
+            addBook();
+            break;
+        case 3:
+            removeBook();
+            break;
+        case 4:
+            findBook();
+            break;
+        case 5:
+            BorrowBook();
+            break;
+        case 6:
+            returnBorrowedBook();
+            break;
+        case 7:
+            cout << "Exiting program.\n";
+            break;
+        default:
+            cout << "Invalid choice, please try again.\n";
+        }
+    } while (choice != 7);
+}
+
+void findBook()
 {
     string title;
     cout << "Enter the title of the book you search: ";
     getline(cin, title);
 
-    Book *book = lib.find(title);
+    Book *book = library.find(title);
 
     if (book != nullptr)
     {
@@ -54,24 +124,24 @@ void findBook(List &lib)
     }
     else
     {
-        cout << "book not found \n";
+        cout << "Book not found \n";
     }
 }
 
-void BorrowBook(List &lib)
+void BorrowBook()
 {
     cout << "Enter the title of the book that you want to borrow: ";
     string title;
     getline(cin, title);
 
-    Book *book = lib.find(title);
+    Book *book = library.find(title);
 
     if (book != nullptr)
     {
         if (book->copies > 0)
         {
             book->copies--;
-            cout << "you have borrowed the boook: " << book->title << endl;
+            cout << "You have borrowed the book: " << book->title << endl;
             cout << "Remaining copies: " << book->copies << endl;
         }
         else
@@ -81,7 +151,7 @@ void BorrowBook(List &lib)
     }
     else
     {
-        cout << "book not found \n";
+        cout << "Book not found \n";
     }
 }
 
@@ -91,26 +161,38 @@ void greeting()
     cout << message << endl;
 }
 
-void returnBorrowedBook(List &lib)
+void printChoiceMenu()
 {
-    cout << "Enter the title of the book that you want to Return: ";
+    cout << "\nLibrary Menu:\n";
+    cout << "1. Display Books\n";
+    cout << "2. Add Book\n";
+    cout << "3. Remove Book\n";
+    cout << "4. Find Book\n";
+    cout << "5. Borrow Book\n";
+    cout << "6. Return Book\n";
+    cout << "7. Exit\n";
+}
+
+void returnBorrowedBook()
+{
+    cout << "Enter the title of the book that you want to return: ";
     string title;
     getline(cin, title);
-    cout << title << endl;
-    Book *book = lib.find(title);
+
+    Book *book = library.find(title);
 
     if (book != nullptr)
     {
         book->copies++;
-        cout << "Book returned succsesfuly." << endl;
+        cout << "Book returned successfully." << endl;
     }
     else
     {
-        cout << "book not found" << endl;
+        cout << "Book not found" << endl;
     }
 }
 
-void fileSystem(List &library)
+void fileSystemLoad()
 {
     ifstream inputFile("./DATA.txt");
 
@@ -135,4 +217,26 @@ void fileSystem(List &library)
         library.add(Book(title, author, copies));
     }
     inputFile.close();
+}
+
+void fileSystemSave()
+{
+    ofstream outputFile("./DATA.txt", ios::trunc);
+
+    if (!outputFile.is_open())
+    {
+        cerr << "Error: Unable to save to DATA.txt " << endl;
+        return;
+    }
+
+    Node *current = library.getHead();
+    while (current != nullptr)
+    {
+        const Book &book = current->data;
+        outputFile << book.title << "," << book.author << "," << book.copies << endl;
+        current = current->next;
+    }
+
+    outputFile.close();
+    cout << "Library data saved successfully." << endl;
 }
