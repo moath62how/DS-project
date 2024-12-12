@@ -19,13 +19,9 @@ void removeBook();
 int main()
 {
     fileSystemLoad();
-    string s;
-    getline(cin, s);
-    library.remove(s);
-    library.print();
-    // greeting();
-    // getChoice();
-    // fileSystemSave();
+    greeting();
+    getChoice();
+    fileSystemSave();
     return 0;
 }
 
@@ -36,40 +32,23 @@ void displayBooks()
     cout << "--------------------------------" << endl;
 }
 
-void addBook()
+void greeting()
 {
-    string title, author;
-    int copies;
-    cout << "Enter the title of Book: ";
-    cin.ignore();
-    getline(cin, title);
-    cout << "Enter the author of Book: ";
-    getline(cin, author);
-    cout << "Enter the copies of Book: ";
-    cin >> copies;
-    library.add(Book(title, author, copies));
+    string message = "Welcome to the library!";
+    cout << message << endl;
 }
 
-void removeBook()
+void printChoiceMenu()
 {
-    string title;
-    cout << "Enter the title of the book to remove: ";
-    cin.ignore();
-    getline(cin, title);
-
-    Book *book = library.find(title);
-
-    if (book != nullptr)
-    {
-        library.remove(title);
-        cout << "Book removed successfully.\n";
-    }
-    else
-    {
-        cout << "Error: Book not found in the library.\n";
-    }
+    cout << "\nLibrary Menu:\n";
+    cout << "1. Display Books\n";
+    cout << "2. Add Book\n";
+    cout << "3. Remove Book\n";
+    cout << "4. Find Book\n";
+    cout << "5. Borrow Book\n";
+    cout << "6. Return Book\n";
+    cout << "7. Exit\n";
 }
-
 void getChoice()
 {
     unsigned int choice;
@@ -78,7 +57,6 @@ void getChoice()
         printChoiceMenu();
         cout << "Enter your choice: ";
         cin >> choice;
-        // cin.ignore();
 
         switch (choice)
         {
@@ -109,10 +87,45 @@ void getChoice()
     } while (choice != 7);
 }
 
+void addBook()
+{
+    string title, author;
+    int copies;
+    cout << "Enter the title of Book: ";
+    cin.ignore(); // To clear the buffer before getline
+    getline(cin, title);
+    cout << "Enter the author of Book: ";
+    getline(cin, author);
+    cout << "Enter the copies of Book: ";
+    cin >> copies;
+    library.add(Book(title, author, copies));
+}
+
+void removeBook()
+{
+    string title;
+    cout << "Enter the title of the book to remove: ";
+    cin.ignore(); // To clear the buffer before getline
+    getline(cin, title);
+
+    Book *book = library.find(title);
+
+    if (book != nullptr)
+    {
+        library.remove(title);
+        cout << "Book removed successfully.\n";
+    }
+    else
+    {
+        cout << "Error: Book not found in the library.\n";
+    }
+}
+
 void findBook()
 {
     string title;
     cout << "Enter the title of the book you search: ";
+    cin.ignore(); // To clear the buffer before getline
     getline(cin, title);
 
     Book *book = library.find(title);
@@ -132,6 +145,7 @@ void BorrowBook()
 {
     cout << "Enter the title of the book that you want to borrow: ";
     string title;
+    cin.ignore(); // To clear the buffer before getline
     getline(cin, title);
 
     Book *book = library.find(title);
@@ -155,28 +169,11 @@ void BorrowBook()
     }
 }
 
-void greeting()
-{
-    string message = "Welcome to the library!";
-    cout << message << endl;
-}
-
-void printChoiceMenu()
-{
-    cout << "\nLibrary Menu:\n";
-    cout << "1. Display Books\n";
-    cout << "2. Add Book\n";
-    cout << "3. Remove Book\n";
-    cout << "4. Find Book\n";
-    cout << "5. Borrow Book\n";
-    cout << "6. Return Book\n";
-    cout << "7. Exit\n";
-}
-
 void returnBorrowedBook()
 {
     cout << "Enter the title of the book that you want to return: ";
     string title;
+    cin.ignore(); // To clear the buffer before getline
     getline(cin, title);
 
     Book *book = library.find(title);
@@ -232,7 +229,7 @@ void fileSystemSave()
     Node *current = library.getHead();
     while (current != nullptr)
     {
-        const Book &book = current->data;
+        Book &book = current->data;
         outputFile << book.title << "," << book.author << "," << book.copies << endl;
         current = current->next;
     }
